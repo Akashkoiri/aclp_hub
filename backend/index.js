@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors())
 
 // Routes
+app.get('/', (req, res) => res.status(200).json({ paths: ["/students"] }))
 app.use('/students', studentRoutes)
 
 connectDb(MONGODB_URI)
