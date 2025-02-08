@@ -13,6 +13,10 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { ThemeToggle } from "./theme-toggle"
+import { SidebarTrigger } from "./ui/sidebar"
+
+
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -54,9 +58,20 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function Navbar() {
     return (
-        <nav>
+        // <header className="flex justify-between content-center h-12">
+        <header className="sticky top-0 z-50 w-full flex justify-between content-center h-12 bg-white dark:bg-gray-950">
             <NavigationMenu>
                 <NavigationMenuList>
+                    <NavigationMenuItem>
+                        <SidebarTrigger className="ml-4" />
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <Link href="/" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                Home
+                            </NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem>
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
                         <NavigationMenuContent>
@@ -64,7 +79,7 @@ export default function Navbar() {
                                 <li className="row-span-3">
                                     <NavigationMenuLink asChild>
                                         <a
-                                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                                             href="/"
                                         >
                                             <div className="mb-2 mt-4 text-lg font-medium">
@@ -77,7 +92,7 @@ export default function Navbar() {
                                         </a>
                                     </NavigationMenuLink>
                                 </li>
-                                <ListItem href="/docs" title="Introduction">
+                                <ListItem href="/" title="Introduction">
                                     Re-usable components built using Radix UI and Tailwind CSS.
                                 </ListItem>
                                 <ListItem href="/docs/installation" title="Installation">
@@ -114,7 +129,10 @@ export default function Navbar() {
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
-        </nav>
+            <div className="m-1">
+                <ThemeToggle />
+            </div>
+        </header>
     )
 }
 
@@ -128,7 +146,7 @@ const ListItem = React.forwardRef<
                 <a
                     ref={ref}
                     className={cn(
-                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                         className
                     )}
                     {...props}

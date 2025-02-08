@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-// Theme provider
-import { ThemeProvider } from "@/components/theme-provider"
+// provider
+import { QueryProvider } from "@/components/providers/query-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider"
 // Shad-cn comps
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import Navbar from "@/components/navbar";
-import { ThemeToggle } from "@/components/theme-toggle";
+
 // Styles
 import "./globals.css";
+import { Separator } from "@/components/ui/separator";
 
 
 
@@ -33,28 +35,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex flex-col">
-            {/* <Navbar /> */}
-            <main className="">
-              <SidebarProvider>
-                <AppSidebar />
-                <SidebarTrigger />
-                <ThemeToggle />
-                {children}
-              </SidebarProvider>
-            </main>
-          </div>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider defaultOpen={false}>
+              <AppSidebar />
+              <div className="flex flex-col w-full">
+                <Navbar />
+                <Separator />
+                <main className="flex-1 overflow-auto mx-40">
+                  {children}
+                </main>
+              </div>
+            </SidebarProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html >
   );

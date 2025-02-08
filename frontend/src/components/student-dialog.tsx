@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { Button } from "./ui/button"
-import { CreateStudentDialog } from "./dialogs/create-student-dialog"
+import { CreateStudentDialog } from "./dialogs/student_dialog"
 
 
-export default function CreateStudent() {
+export default function StudentDialog() {
 
     const [open, setOpen] = useState(false)
 
